@@ -29,6 +29,8 @@ ElectricNet& ElectricNet::operator+(ElectricDevice& newDevice){
 
     // TODO: Add a checkIfNameUnique function
     // TODO: Test if can add const Object to non-const Object*
+    // TODO: Make definitely non-negative values of type size_t
+    // TODO: Inline erase method
 
     return *this;
 }
