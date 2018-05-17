@@ -5,7 +5,7 @@
 template <class T>
 class Pair{
 public:
-    Pair(const char* = "key", T = 0);
+    Pair(const char* = "key", T const& = 0);
     Pair(Pair<T> const&);
     ~Pair();
     Pair<T>& operator=(Pair<T> const&);
@@ -19,11 +19,13 @@ private:
     T value;
 
     void copy(Pair<T> const&);
-}
+    void erase();
+};
 
 template <class T>
-Pair<T>::Pair(const char* name, T value):value(value){
+Pair<T>::Pair(const char* name, T const& value):value(value){
     this->key = new char[strlen(name)+1];
+    strcpy(this->key, name);
 }
 
 template <class T>
@@ -33,15 +35,16 @@ Pair<T>::Pair(Pair<T> const& other){
 
 template <class T>
 Pair<T>::~Pair(){
-    delete value;
+    erase();
 }
 
 template <class T>
 Pair<T>& Pair<T>::operator=(Pair<T> const& other){
     if(this!=&other){
-        delete value;
+        erase();
         copy(other);
     }
+    return *this;
 }
 
 template <class T>
@@ -55,7 +58,7 @@ const T& Pair<T>::getValue() const{
 }
 
 template <class T>
-void Pair<T>::setValue(T value){
+void Pair<T>::setValue(T const& value){
     this->value = value;
 }
 
@@ -63,5 +66,10 @@ template <class T>
 void Pair<T>::copy(Pair<T> const& other){
     this->key = new char[strlen(other.key) + 1];
     strcpy(this->key, other.key);
-    this->value = value;
+    this->value = other.value;
+}
+
+template <class T>
+void Pair<T>::erase(){
+    delete[] key;
 }
