@@ -19,4 +19,4 @@ private:
 
     void copy(ElectricDevice const&);
     void erase();
-}
+};

@@ -1,5 +1,5 @@
 #include "ElectricDevice.h"
-#include <string.h>
+#include <cstring>
 
 ElectricDevice::ElectricDevice(const char* name, int powerConsumed):powerConsumed(powerConsumed){
     setName(name);
@@ -29,7 +29,7 @@ void ElectricDevice::setName(const char* name){
     if(name==nullptr)
         return;
 
-    this->name = new char[getLength(name)+1];
+    this->name = new char[strlen(name)+1];
     strcpy(this->name, name);
 }
 
@@ -37,7 +37,7 @@ int ElectricDevice::getPowerConsumed() const{
     return powerConsumed;
 }
 
-void ElectricDevice::setPowerConsumed(powerConsumed){
+void ElectricDevice::setPowerConsumed(int powerConsumed){
     this->powerConsumed = powerConsumed;
 }
 
