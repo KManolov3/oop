@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Vehicle.h"
+#include <cstring>
 
 Vehicle::Vehicle(const char* make, const char* model, const char* color, size_t year, double mileage) : year(year), mileage(mileage) {
     setMake(make);
@@ -24,47 +25,59 @@ Vehicle& Vehicle::operator=(const Vehicle& other){
     return *this;
 }
 
-const char* getMake()const{
+const char* Vehicle::getMake() const{
     return this->make;
 }
 
-void setMake(const char* make){
+void Vehicle::setMake(const char* make){
     if(make == nullptr){
-        std::cerr<<"Trying to set make to nullptr. Off with you!"<<std::endl;
+        make = nullptr;
         return;
     }
     this->make = new char[strlen(make) + 1];
     strcpy(this->make, make);
 }
 
-const char* getModel() const{
+const char* Vehicle::getModel() const{
     return this->model;
 }
 
-void setModel(const char* model){
+void Vehicle::setModel(const char* model){
     if(model == nullptr){
-        std::cerr<<"Trying to set model to nullptr. Off with you!"<<std::endl;
+        model = nullptr;
         return;
     }
     this->model = new char[strlen(model) + 1];
     strcpy(this->model, model);
 }
 
-const char* getColor() const{
+const char* Vehicle::getColor() const{
     return this->color;
 }
 
-void setColor(const char* color){
+void Vehicle::setColor(const char* color){
     if(color == nullptr){
-        std::cerr<<"Trying to set color to nullptr. Off with you!"<<std::endl;
+        color = nullptr;
         return;
     }
     this->color = new char[strlen(color) + 1];
     strcpy(this->color, color);
 }
 
-size_t getYear() const{
+size_t Vehicle::getYear() const{
     return this->year;
+}
+
+void Vehicle::setYear(size_t year){
+    this->year = year;
+}
+
+double Vehicle::getMileage() const{
+    return mileage;
+}
+
+void Vehicle::setMileage(double mileage){
+    this->mileage = mileage;
 }
 
 void Vehicle::copy(const Vehicle& other){

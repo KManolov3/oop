@@ -3,7 +3,7 @@
 
 class Vehicle{
 public:
-    Vehicle(const char* = "generic", const char* = "model 1", const char* = "white", size_t, double);
+    Vehicle(const char* = "generic", const char* = "model 1", const char* = "white", size_t = 1900, double = 0);
     Vehicle(const Vehicle&);
     ~Vehicle();
     Vehicle& operator=(const Vehicle&);
@@ -11,15 +11,15 @@ public:
     const char* getMake() const;
     void setMake(const char*);
     const char* getModel() const;
-    void setModel(const char*) const;
+    void setModel(const char*);
     const char* getColor() const;
-    void setColor (const char*) const;
+    void setColor (const char*);
     size_t getYear() const;
-    void setYear(size_t) const;
+    void setYear(size_t);
     double getMileage() const;
-    void setMileage(double) const;
+    void setMileage(double);
 
-    virtual void details() const;
+    virtual void details() const = 0;
 
 private:
     char* make;

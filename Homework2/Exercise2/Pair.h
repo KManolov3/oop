@@ -28,7 +28,8 @@ Pair<T>::Pair(const char* key, const T& value):value(value){
         this->key = new char[strlen(key)+1];
         strcpy(this->key, key);
     } else {
-        key = "";
+        this->key = new char[strlen("")+1];
+        strcpy(this->key, "");
     }
 }
 
