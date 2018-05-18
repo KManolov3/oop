@@ -7,9 +7,9 @@ template <class T>
 class Settings{
 public:
     Settings(size_t=10);
-    Settings(Settings const&);
+    Settings(const Settings<T>&);
     ~Settings();
-    Settings& operator=(Settings const&);
+    Settings& operator=(const Settings<T>&);
 
     size_t count() const;
     void set(const char*, const T&);
@@ -23,7 +23,7 @@ private:
     int findElemIndex(const char*) const;
     void addSetting(const char*, const T&);
     void resize();
-    void copy();
+    void copy(const Settings<T>&);
 };
 
 template <class T>
@@ -33,7 +33,7 @@ Settings<T>::Settings(size_t maxSettingSize):maxSettingSize(maxSettingSize){
 }
 
 template <class T>
-Settings<T>::Settings(Settings const& other){
+Settings<T>::Settings(const Settings& other){
     copy(other);
 }
 
@@ -43,7 +43,7 @@ Settings<T>::~Settings(){
 }
 
 template <class T>
-Settings<T>& Settings<T>::operator=(Settings<T> const& other){
+Settings<T>& Settings<T>::operator=(const Settings<T>& other){
     if(this!=&other){
         delete[] settings;
         copy(other);
@@ -58,8 +58,11 @@ size_t Settings<T>::count() const{
 }
 
 template <class T>
-void Settings<T>::set(const char* key, T const& value){
+void Settings<T>::set(const char* key, const T& value){
     int index = findElemIndex(key);
+
+    if(index == -2)
+        return;
 
     if(index!=-1){
         settings[index].setValue(value);
@@ -73,7 +76,7 @@ template <class T>
 bool Settings<T>::get(const char* key, T& value) const{
     int index = findElemIndex(key);
 
-    if(index == -1)
+    if(index < 0)
         return false;
 
     value = settings[index].getValue();
@@ -82,6 +85,11 @@ bool Settings<T>::get(const char* key, T& value) const{
 
 template <class T>
 int Settings<T>::findElemIndex(const char* key) const{
+    if(key == nullptr){
+        std::cerr<<"Key is null. Invalid key."<<std::endl;
+        return -2;
+    }
+
     for(int i=0; i<currentSettingSize; i++){
         if(strcmp(settings[i].getKey(), key) == 0){
             return i;
@@ -92,7 +100,7 @@ int Settings<T>::findElemIndex(const char* key) const{
 }
 
 template <class T>
-void Settings<T>::addSetting(const char* key, T const& value){
+void Settings<T>::addSetting(const char* key, const T& value){
     Pair<T> newSetting(key, value);
 
     if(currentSettingSize == maxSettingSize)
@@ -111,5 +119,14 @@ void Settings<T>::resize(){
     }
 
     delete[] holder;
+}
+
+template <class T>
+void Settings<T>::copy(const Settings& other){
+    this->settings = new Pair<T>[other.maxSettingSize];
+    for(int i=0; i<other.maxSettingSize; i++)
+        settings[i] = other.settings[i];
+    this->currentSettingSize = other.currentSettingSize;
+    this->maxSettingSize = other.maxSettingSize;
 }
 

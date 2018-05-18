@@ -2,12 +2,15 @@
 #include "Settings.h"
 
 int main(){
-    Settings<int> settings(14);
-    std::cout<<settings.count()<<std::endl;
+    Settings<int> settings(1), settings3;
+    Settings<int> settings2 = settings;
+    settings3 = settings;
+
+    std::cout<<"Number of settings: "<<settings.count()<<std::endl;
+
     settings.set("gosho", 12);
     settings.set("pesho", 31);
-
-    std::cout<<"hello\n";
+    settings.set(nullptr, 0);
 
     int value;
     std::cout<<"Operation successful? "<<settings.get("pesho", value)<<std::endl;
