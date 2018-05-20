@@ -1,2 +1,2 @@
 # oop
-OOP SI 2018, HW2
+OOP SI 2018
