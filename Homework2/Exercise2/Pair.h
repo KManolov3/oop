@@ -24,13 +24,8 @@ private:
 
 template <class T>
 Pair<T>::Pair(const char* key, const T& value):value(value){
-    if(key != nullptr){
-        this->key = new char[strlen(key)+1];
-        strcpy(this->key, key);
-    } else {
-        this->key = new char[strlen("")+1];
-        strcpy(this->key, "");
-    }
+    this->key = new char[strlen(key)+1];
+    strcpy(this->key, key);
 }
 
 template <class T>

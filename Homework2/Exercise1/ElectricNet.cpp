@@ -1,7 +1,7 @@
 #include "ElectricNet.h"
 #include <cstring>
 
-ElectricNet::ElectricNet(int maxPowerConsumption) :
+ElectricNet::ElectricNet(size_t maxPowerConsumption) :
 currentElectricNetSize(0), maxElectricNetSize(10), currentPowerConsumption(0), maxPowerConsumption(maxPowerConsumption)
 {
     electricNet=new ElectricDevice[maxElectricNetSize];
@@ -12,12 +12,12 @@ ElectricNet::ElectricNet(ElectricNet const& other){
 }
 
 ElectricNet::~ElectricNet(){
-    erase();
+    delete[] electricNet;
 }
 
 ElectricNet& ElectricNet::operator=(ElectricNet const& other){
     if(this != &other){
-        erase();
+        delete[] electricNet;
         copy(other);
     }
 
@@ -25,12 +25,10 @@ ElectricNet& ElectricNet::operator=(ElectricNet const& other){
 }
 
 ElectricNet& ElectricNet::operator+(ElectricDevice& newDevice){
-    addDevice(newDevice);
-
-    // TODO: Add a checkIfNameUnique function
-    // TODO: Test if can add const Object to non-const Object*
-    // TODO: Make definitely non-negative values of type size_t
-    // TODO: Inline erase method
+    if(!isDeviceUnique(newDevice.getName()))
+        std::cerr<<"A device with the same name already exists in the network! Doing nothing.\n";
+    else
+        addDevice(newDevice);
 
     return *this;
 }
@@ -55,8 +53,8 @@ const ElectricDevice& ElectricNet::operator[](const char* deviceName) const{
     if(devicePosition != -1)
         return electricNet[devicePosition];
 
-    std::cerr<<"No device with that name in current electric network. Returning nullptr\n";
-    return nullptr;
+    std::cerr<<"No device with that name exists in the current electric network. Returning empty device\n";
+    return ElectricDevice();
 }
 
 bool ElectricNet::operator!() const{
@@ -74,15 +72,24 @@ bool ElectricNet::operator--(){
         maxPowerConsumption/=2;
         return true;
     }
+    std::cerr<<"Cannot half the power consumption, the network will overload!\n";
     return false;
 }
 
-int ElectricNet::getMaxConsumption() const{
+size_t ElectricNet::getMaxConsumption() const{
     return maxPowerConsumption;
 }
 
-void ElectricNet::setMaxConsumption(int maxPowerConsumption){
+void ElectricNet::setMaxConsumption(size_t maxPowerConsumption){
     this->maxPowerConsumption = maxPowerConsumption;
+}
+
+bool ElectricNet::isDeviceUnique(const char* deviceName) const{
+    int existsInNetwork = findDevicePosition(deviceName);
+
+    if(existsInNetwork!=-1)
+        return false;
+    return true;
 }
 
 int ElectricNet::findDevicePosition(const char* deviceName) const{
@@ -91,6 +98,8 @@ int ElectricNet::findDevicePosition(const char* deviceName) const{
             return i;
         }
     }
+
+    return -1;
 }
 
 void ElectricNet::removeDevice(const char* name){
@@ -129,10 +138,6 @@ void ElectricNet::resizeElectricNet() {
     }
 
     delete[] holder;
-}
-
-void ElectricNet::erase() {
-    delete[] electricNet;
 }
 
 void ElectricNet::copy(ElectricNet const& other){

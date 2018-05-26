@@ -1,11 +1,14 @@
 #include <iostream>
-#include "Vehicle.h"
 #include <cstring>
+#include "Vehicle.h"
 
-Vehicle::Vehicle(const char* make, const char* model, const char* color, size_t year, double mileage) : year(year), mileage(mileage) {
-    setMake(make);
-    setModel(model);
-    setColor(color);
+Vehicle::Vehicle(const char* make, const char* model, const char* color, size_t year, double mileage) : mileage(mileage), year(year) {
+    this->make = new char[strlen(make) + 1];
+    strcpy(this->make, make);
+    this->model = new char[strlen(model) + 1];
+    strcpy(this->model, model);
+    this->color = new char[strlen(color) + 1];
+    strcpy(this->color, color);
 }
 
 Vehicle::Vehicle(const Vehicle& other){
@@ -31,10 +34,14 @@ const char* Vehicle::getMake() const{
 
 void Vehicle::setMake(const char* make){
     if(make == nullptr){
-        make = nullptr;
+        std::cerr<<"Trying to set make to null pointer!\n";
         return;
     }
-    this->make = new char[strlen(make) + 1];
+
+    if(this->make == nullptr || strlen(this->make) < strlen(make)){
+        delete[] this->make;
+        this->make = new char[strlen(make) + 1];
+    }
     strcpy(this->make, make);
 }
 
@@ -44,10 +51,14 @@ const char* Vehicle::getModel() const{
 
 void Vehicle::setModel(const char* model){
     if(model == nullptr){
-        model = nullptr;
+        std::cerr<<"Trying to set model to null pointer!\n";
         return;
     }
-    this->model = new char[strlen(model) + 1];
+
+    if(this->model == nullptr || strlen(this->model) < strlen(model)){
+        delete[] this->model;
+        this->model = new char[strlen(model) + 1];
+    }
     strcpy(this->model, model);
 }
 
@@ -57,10 +68,15 @@ const char* Vehicle::getColor() const{
 
 void Vehicle::setColor(const char* color){
     if(color == nullptr){
-        color = nullptr;
+        std::cerr<<"Trying to set color to null pointer!\n";
         return;
     }
-    this->color = new char[strlen(color) + 1];
+
+    if(this->color == nullptr || strlen(this->color) < strlen(color)){
+        delete[] this->color;
+        this->color = new char[strlen(color) + 1];
+    }
+
     strcpy(this->color, color);
 }
 
@@ -81,9 +97,12 @@ void Vehicle::setMileage(double mileage){
 }
 
 void Vehicle::copy(const Vehicle& other){
-    setMake(other.make);
-    setModel(other.model);
-    setColor(other.color);
+    this->make = new char[strlen(other.make) + 1];
+    strcpy(this->make, other.make);
+    this->model = new char[strlen(other.model) + 1];
+    strcpy(this->model, other.model);
+    this->color = new char[strlen(other.color) + 1];
+    strcpy(this->color, other.color);
     this->year = other.year;
     this->mileage = other.mileage;
 }
@@ -93,5 +112,3 @@ void Vehicle::erase(){
     delete[] model;
     delete[] color;
 }
-
-

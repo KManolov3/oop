@@ -3,19 +3,19 @@
 
 class ElectricDevice{
 public:
-    ElectricDevice(const char* = "Electric", int = 5);
+    ElectricDevice(const char* = "Electric", size_t = 5);
     ElectricDevice(ElectricDevice const&);
     ~ElectricDevice();
     ElectricDevice& operator=(ElectricDevice const&);
 
     const char* getName() const;
     void setName(const char*);
-    int getPowerConsumed() const;
-    void setPowerConsumed(int);
+    size_t getPowerConsumed() const;
+    void setPowerConsumed(size_t);
 
 private:
     char *name;
-    int powerConsumed;
+    size_t powerConsumed;
 
     void copy(ElectricDevice const&);
     void erase();

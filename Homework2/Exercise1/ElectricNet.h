@@ -4,7 +4,7 @@
 
 class ElectricNet{
 public:
-    ElectricNet(int = 10);
+    ElectricNet(size_t = 10);
     ElectricNet(ElectricNet const&);
     ~ElectricNet();
     ElectricNet& operator=(ElectricNet const&);
@@ -18,19 +18,20 @@ public:
     void operator++();
     bool operator--();
 
-    int getMaxConsumption() const;
-    void setMaxConsumption(int);
+    size_t getMaxConsumption() const;
+    void setMaxConsumption(size_t);
 private:
     ElectricDevice *electricNet;
-    int currentElectricNetSize;
-    int maxElectricNetSize;
-    int currentPowerConsumption;
-    int maxPowerConsumption;
+    size_t currentElectricNetSize;
+    size_t maxElectricNetSize;
+    size_t currentPowerConsumption;
+    size_t maxPowerConsumption;
 
+
+    bool isDeviceUnique(const char*)const;
     int findDevicePosition(const char*) const;
     void removeDevice(const char*);
     void addDevice(ElectricDevice&);
     void resizeElectricNet();
-    void erase();
     void copy(ElectricNet const&);
 };

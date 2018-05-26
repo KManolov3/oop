@@ -1,6 +1,5 @@
 #pragma once
-#include <iostream>
-#include "Vehicle.cpp"
+#include "Vehicle.h"
 
 class Motorcycle : public Vehicle{
 public:
@@ -15,4 +14,6 @@ public:
         void details() const;
 private:
         char* type;
+
+        void copy(const Motorcycle&);
 };

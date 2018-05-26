@@ -1,6 +1,5 @@
 #pragma once
-#include <iostream>
-#include "Vehicle.cpp"
+#include "Vehicle.h"
 
 class Truck : public Vehicle{
 public:

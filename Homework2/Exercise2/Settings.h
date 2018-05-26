@@ -27,8 +27,7 @@ private:
 };
 
 template <class T>
-Settings<T>::Settings(size_t maxSettingSize):maxSettingSize(maxSettingSize){
-    currentSettingSize = 0;
+Settings<T>::Settings(size_t maxSettingSize):maxSettingSize(maxSettingSize), currentSettingSize(0){
     settings = new Pair<T>[maxSettingSize];
 }
 

@@ -1,8 +1,9 @@
 #include "ElectricDevice.h"
 #include <cstring>
 
-ElectricDevice::ElectricDevice(const char* name, int powerConsumed):powerConsumed(powerConsumed){
-    setName(name);
+ElectricDevice::ElectricDevice(const char* name, size_t powerConsumed):powerConsumed(powerConsumed){
+    this->name = new char[strlen(name)+1];
+    strcpy(this->name, name);
 }
 
 ElectricDevice::ElectricDevice(ElectricDevice const& other){
@@ -26,24 +27,31 @@ const char* ElectricDevice::getName() const{
 }
 
 void ElectricDevice::setName(const char* name){
-    if(name==nullptr)
+    if(name == nullptr){
+        std::cerr<<"Trying to set name to null pointer!\n";
         return;
+    }
 
-    this->name = new char[strlen(name)+1];
+    if(this->name == nullptr || strlen(this->name) < strlen(name)){
+        delete[] this->name;
+        this->name = new char[strlen(name) + 1];
+    }
+
     strcpy(this->name, name);
 }
 
-int ElectricDevice::getPowerConsumed() const{
+size_t ElectricDevice::getPowerConsumed() const{
     return powerConsumed;
 }
 
-void ElectricDevice::setPowerConsumed(int powerConsumed){
+void ElectricDevice::setPowerConsumed(size_t powerConsumed){
     this->powerConsumed = powerConsumed;
 }
 
 void ElectricDevice::copy(ElectricDevice const& other){
-    setName(other.name);
-    setPowerConsumed(other.powerConsumed);
+    this->name = new char[strlen(other.name)+1];
+    strcpy(this->name, other.name);
+    this->powerConsumed = other.powerConsumed;
 }
 
 void ElectricDevice::erase(){
