@@ -35,5 +35,6 @@ int main(){
     net-dev1;
     std::cout<<"Is there a device in the network? "<<!net<<std::endl;
 
+
     return 0;
 }
