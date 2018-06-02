@@ -10,6 +10,7 @@ public:
     virtual void display() const = 0;
 
     double getBalance() const;
+    //void setIban(const char []);
 protected:
     char iban[34];
     int ownerId;

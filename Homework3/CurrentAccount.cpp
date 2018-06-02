@@ -1,6 +1,9 @@
 #include <iostream>
 #include "CurrentAccount.h"
 
+CurrentAccount::CurrentAccount(const char iban[], int ownerId, double amount) : Account(iban, ownerId, amount) {
+}
+
 void CurrentAccount::deposit(double amountToDeposit){
     this->amount+=amountToDeposit;
 }

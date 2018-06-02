@@ -27,15 +27,15 @@ Customer& Customer::operator=(const Customer& other){
 }
 
 int Customer::getId() const{
-    return id;
+    return this->id;
 }
 
 const char* Customer::getName() const{
-    return name;
+    return this->name;
 }
 
 const char* Customer::getAddress() const{
-    return address;
+    return this->address;
 }
 
 void Customer::display() const{
@@ -50,6 +50,6 @@ void Customer::copy(const Customer& other){
 }
 
 void Customer::erase(){
-    delete[] name;
-    delete[] address;
+    delete[] this->name;
+    delete[] this->address;
 }
