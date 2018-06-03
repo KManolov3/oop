@@ -18,7 +18,7 @@ bool SavingsAccount::withdraw(double amountToWithdraw){
 
 void SavingsAccount::display() const{
     std::cout<<"This is an account of type savings account. It has IBAN: "<<this->iban<<"\nIt belong to a customer with id: "
-    <<this->ownerId<<"\nIt has a current balance of "<<this->amount<<" eur.\n";
+    <<this->ownerId<<"\nIt has a current balance of "<<this->amount<<" eur.\nIt has an yearly interest rate of "<<this->interestRate<<"%.\n";
 }
 
 double SavingsAccount::getInterestRate() const{

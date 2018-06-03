@@ -11,6 +11,7 @@ int main() {
     cur2.display();
     cur.display();
 */
+    Account* acc = new Account[10];
 
 
     return 0;

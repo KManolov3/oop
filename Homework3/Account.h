@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#define STANDARD_IBAN_LENGTH 34
 
 class Account{
 public:
@@ -12,7 +13,7 @@ public:
     double getBalance() const;
     //void setIban(const char []);
 protected:
-    char iban[34];
+    char iban[STANDARD_IBAN_LENGTH];
     int ownerId;
     double amount;
 };
