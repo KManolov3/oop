@@ -4,6 +4,10 @@
 SavingsAccount::SavingsAccount(const char iban[], int ownerId, double amount, double interestRate) : Account(iban, ownerId, amount), interestRate(interestRate) {
 }
 
+Account* SavingsAccount::clone() const{
+    return new SavingsAccount(*this);
+}
+
 void SavingsAccount::deposit(double amountToDeposit){
     this->amount+=amountToDeposit;
 }

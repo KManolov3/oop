@@ -43,6 +43,7 @@ void Customer::display() const{
 }
 
 void Customer::copy(const Customer& other){
+    this->id = other.id;
     this->name = new char[strlen(other.name) + 1];
     strcpy(this->name, other.name);
     this->address = new char[strlen(other.address) + 1];

@@ -5,11 +5,15 @@ PrivilegeAccount::PrivilegeAccount(const char iban[], int ownerId, double amount
 
 }
 
-PrivilegeAccount::deposit(double amountToDeposit){
+Account* PrivilegeAccount::clone() const{
+    return new PrivilegeAccount(*this);
+}
+
+void PrivilegeAccount::deposit(double amountToDeposit){
     this->amount+=amountToDeposit;
 }
 
-PrivilegeAccount::withdraw(double amountToWithdraw){
+bool PrivilegeAccount::withdraw(double amountToWithdraw){
     if((this->amount + this->overdraft) - amountToWithdraw < 0)
         return false;
 

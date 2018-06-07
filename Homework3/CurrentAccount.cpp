@@ -4,6 +4,10 @@
 CurrentAccount::CurrentAccount(const char iban[], int ownerId, double amount) : Account(iban, ownerId, amount) {
 }
 
+Account* CurrentAccount::clone() const{
+    return new CurrentAccount(*this);
+}
+
 void CurrentAccount::deposit(double amountToDeposit){
     this->amount+=amountToDeposit;
 }

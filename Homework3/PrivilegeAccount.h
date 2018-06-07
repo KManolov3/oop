@@ -2,9 +2,11 @@
 #include <iostream>
 #include "Account.h"
 
-class PrivilegeAccount{
+class PrivilegeAccount : public Account{
 public:
-    PrivilegeAccount(const char [] = "unspecified", int = 0, double = 0, double = 0);
+    PrivilegeAccount(const char [] = "unspecified", int = 0, double = 0, double = 5);
+
+    Account* clone() const;
 
     void deposit(double);
     bool withdraw(double);

@@ -1,5 +1,9 @@
 #include <iostream>
+#include <vector>
 #include "Account.cpp"
+#include "CurrentAccount.cpp"
+#include "SavingsAccount.cpp"
+#include "PrivilegeAccount.cpp"
 #include "Customer.cpp"
 
 class Bank{
@@ -17,25 +21,23 @@ public:
     bool deleteCustomer(int);
 
     bool addAccount(const char*, const char [], int, double);
-    bool deleteAcccount(const char []);
+    bool deleteAccount(const char []);
     void listAccounts() const;
     void listCustomerAccount(int) const;
 
+    bool withdraw(const char[], double);
+    bool deposit(const char[], double);
     bool transfer(const char[], const char[], double);
     void display() const;
 
 private:
     char* name;
     char* address;
-    Customer** customers;
-    int maxCustomers;
-    int curCustomers;
-    Account** accounts;
-    int maxAccounts;
-    int curAccounts;
+    std::vector<Customer*> customers;
+    std::vector<Account*> accounts;
 
-    void resizeCustomers();
-    void resizeAccounts();
+    int customerPos(int);
+    int accountPos(const char[]);
 
     void copy(const Bank&);
     void erase();
