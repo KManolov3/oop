@@ -56,10 +56,12 @@ bool Bank::deleteCustomer(int ownerId) {
     if(customerPos == -1)
         return false;
 
+    delete this->customers[customerPos];
     this->customers.erase(this->customers.begin() + customerPos);
 
     for(int i=0; i<this->accounts.size(); i++){
         if(this->accounts[i]->getOwnerId() == ownerId){
+            delete this->accounts[i];
             this->accounts.erase(this->accounts.begin() + i);
             --i;
         }
@@ -110,6 +112,7 @@ bool Bank::deleteAccount(const char iban[]){
         return false;
     }
 
+    delete this->accounts[position];
     this->accounts.erase(this->accounts.begin() + position);
     return true;
 }
@@ -226,8 +229,7 @@ void Bank::erase(){
         delete this->customers[i];
     this->customers.clear();
 
-    for(int i=0; i<this->accounts.size(); i++){
+    for(int i=0; i<this->accounts.size(); i++)
         delete this->accounts[i];
-    }
     this->accounts.clear();
 }
